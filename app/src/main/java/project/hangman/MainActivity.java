@@ -1,5 +1,6 @@
 package project.hangman;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //go to a new android page thing
-
+                Toast.makeText(getApplicationContext(), "Starting beginner game", Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
+                MainActivity.this.startActivity(myIntent);
             }
         });
     }
