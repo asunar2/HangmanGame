@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity {
@@ -34,5 +35,11 @@ public class GameActivity extends AppCompatActivity {
                 GameActivity.this.startActivity(myIntent);
             }
         });
+        this.displayWrongLetters("Wrong Letters");
+    }
+    private void displayWrongLetters(String letters) {
+        TextView wrongLetters;
+        wrongLetters = findViewById(R.id.wrongLetters);
+        wrongLetters.setText(letters);
     }
 }
