@@ -17,12 +17,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         beginnerButton = findViewById(R.id.beginner); //change button to name of the beginner button thing
-
         beginnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //go to a new android page thing
-                Toast.makeText(getApplicationContext(), "Starting beginner game", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Starting beginner game", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                 MainActivity.this.startActivity(myIntent);
             }
