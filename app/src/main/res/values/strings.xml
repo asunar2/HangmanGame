@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ProjectHangMan</string>
+    <string name="hangmanIntro">Hangman Intro</string>
+    <string name="noose">The Noose</string>
+    <string name="head">The Head</string>
+    <string name="body">The Body</string>
+
 </resources>
