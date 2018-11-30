@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 public class GameActivity extends AppCompatActivity {
     //number of characters in the word
     private int numCharacters;
@@ -35,11 +37,17 @@ public class GameActivity extends AppCompatActivity {
                 GameActivity.this.startActivity(myIntent);
             }
         });
+        //Remove this line later, update text on button press in future
         this.displayWrongLetters("Wrong Letters");
     }
-    private void displayWrongLetters(String letters) {
+    private void displayWrongLetters(final String letters) {
+        String toDisplay = letters.toUpperCase();
+        char[] toSort = toDisplay.toCharArray();
+        Arrays.sort(toSort);
+        toDisplay = new String(toSort);
+        toDisplay = toDisplay.replace("", " ");
         TextView wrongLetters;
         wrongLetters = findViewById(R.id.wrongLetters);
-        wrongLetters.setText(letters);
+        wrongLetters.setText(toDisplay);
     }
 }
