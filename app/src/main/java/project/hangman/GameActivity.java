@@ -79,10 +79,9 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
-    private void addWrongLetter(String input) {
-        StringBuilder letters = new StringBuilder(wrongLettersString);
-        letters.append(input);
-        this.wrongLettersString = letters.toString();
+    private void addWrongLetter(final String input) {
+        String letters = wrongLettersString + input;
+        this.wrongLettersString = letters;
     }
 
 }
