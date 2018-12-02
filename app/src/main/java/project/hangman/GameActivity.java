@@ -19,6 +19,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
+    //The game word
+    private String gameWord;
+    //The wrong letters
+    private String wrongLettersString;
     //number of characters in the word
     private int numCharacters;
     //number of correct guesses
@@ -29,7 +33,6 @@ public class GameActivity extends AppCompatActivity {
     private int currentBodyPart;
 
     Button homeButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +48,13 @@ public class GameActivity extends AppCompatActivity {
                 GameActivity.this.startActivity(myIntent);
             }
         });
+        //Get the word for the game from MainActivity
+        this.gameWord = getIntent().getStringExtra("beginnerWord");
+        this.numCharacters = gameWord.length();
+        this.numCorrect = 0;
+        Log.d(TAG, "word: " + gameWord + " length: " + numCharacters);
         //Remove this line later, update text on button press in future
         this.displayWrongLetters("Wrong Letters");
-        getWordOfDay();
     }
     private void displayWrongLetters(final String letters) {
         //Change to uppercase
@@ -63,35 +70,4 @@ public class GameActivity extends AppCompatActivity {
         wrongLetters = findViewById(R.id.wrongLetters);
         wrongLetters.setText(toDisplay);
     }
-    private static void getWordOfDay() {
-        String wordOfDay = null;
-        try {
-            //Open http connection
-            final URL url = new URL("https://en.oxforddictionaries.com/");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-            //If the connection was successful, get the page and put it in a string for now
-            if (connection.getResponseCode() == 200) {
-                InputStream response = connection.getInputStream();
-                int charByte;
-                StringBuilder stringBuilder = new StringBuilder();
-                //Go until the end of the InputStream, then close the connection
-                while ((charByte = response.read()) != -1) {
-                    stringBuilder.append((char) charByte);
-                }
-                String output = stringBuilder.toString();
-                connection.disconnect();
-                Log.d(TAG, "OUTPUTTING: " + output);
-            } else {
-                Log.d(TAG, "http request failed, response code: " + connection.getResponseCode());
-            }
-
-
-        } catch(Exception e) {
-            Log.d(TAG, "oops: " + e);
-        }
-        //return wordOfDay;
-    }
-
 }

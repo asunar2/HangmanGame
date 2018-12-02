@@ -10,12 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class MainActivity extends AppCompatActivity {
     Button beginnerButton;
+    //FOR TESTING, hardcoded word
+    String testing = "testing123";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +26,13 @@ public class MainActivity extends AppCompatActivity {
                 //go to a new android page thing
                 Toast.makeText(getApplicationContext(), "Starting beginner game", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
+                //beginnerWord hardcoded to String testing
+                myIntent.putExtra("beginnerWord", testing);
                 MainActivity.this.startActivity(myIntent);
             }
         });
         //Needs to be run as an AsyncTask bc it requires network access
         new WordMaker().execute();
+
     }
 }
