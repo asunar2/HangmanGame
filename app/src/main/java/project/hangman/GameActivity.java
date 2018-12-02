@@ -83,5 +83,4 @@ public class GameActivity extends AppCompatActivity {
         String letters = wrongLettersString + input;
         this.wrongLettersString = letters;
     }
-
 }
