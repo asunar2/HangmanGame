@@ -67,6 +67,7 @@ public class GameActivity extends AppCompatActivity {
         wrongLetters = findViewById(R.id.wrongLetters);
         wrongLetters.setText(toDisplay);
     }
+    //Helper, call after input to check if it's in the word
     private boolean checkInWord(final String input) {
         if (input.length() > 1) {
             return input.equals(this.gameWord);
@@ -79,6 +80,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+    //Helper, adds the wrong letters to the wrongLettersString
     private void addWrongLetter(final String input) {
         String letters = wrongLettersString + input;
         this.wrongLettersString = letters;
