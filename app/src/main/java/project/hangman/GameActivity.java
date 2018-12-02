@@ -9,13 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
@@ -57,6 +51,9 @@ public class GameActivity extends AppCompatActivity {
         this.displayWrongLetters("Wrong Letters");
     }
     private void displayWrongLetters(final String letters) {
+        if (letters == null) {
+            return;
+        }
         //Change to uppercase
         String toDisplay = letters.toUpperCase();
         //Change to an char[], sort by alphabetical
@@ -70,4 +67,5 @@ public class GameActivity extends AppCompatActivity {
         wrongLetters = findViewById(R.id.wrongLetters);
         wrongLetters.setText(toDisplay);
     }
+
 }

@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -12,8 +13,9 @@
         android:layout_height="201dp"
         android:contentDescription="@string/hangmanIntro"
         android:paddingLeft="0dp"
+        android:paddingRight="0dp"
         android:paddingTop="0dp"
-        android:src="@drawable/intro_hangman"
+        android:src="@drawable/intro_hangman_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
