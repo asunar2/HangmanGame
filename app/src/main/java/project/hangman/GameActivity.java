@@ -67,5 +67,22 @@ public class GameActivity extends AppCompatActivity {
         wrongLetters = findViewById(R.id.wrongLetters);
         wrongLetters.setText(toDisplay);
     }
+    private boolean checkInWord(final String input) {
+        if (input.length() > 1) {
+            return input.equals(this.gameWord);
+        }
+        if (this.gameWord.contains(input)) {
+            return true;
+        } else {
+            addWrongLetter(input);
+            return false;
+        }
+
+    }
+    private void addWrongLetter(String input) {
+        StringBuilder letters = new StringBuilder(wrongLettersString);
+        letters.append(input);
+        this.wrongLettersString = letters.toString();
+    }
 
 }
