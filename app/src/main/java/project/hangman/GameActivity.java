@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
@@ -38,6 +39,9 @@ public class GameActivity extends AppCompatActivity {
     private int numBodyParts = 6;
     //current body part (0 = head, 2 = body... 5 = one leg)
     private int currentBodyPart;
+    //array of body parts images
+    private ImageView[] bodyParts;
+
 
     Button homeButton;
     @Override
@@ -65,6 +69,16 @@ public class GameActivity extends AppCompatActivity {
                 GameActivity.this.startActivity(myIntent);
             }
         });
+
+        //array of body part so images can be displayed one by one when user guesses wrong
+        bodyParts = new ImageView[numBodyParts];
+        bodyParts[0] = findViewById(R.id.head);
+        bodyParts[1] = findViewById(R.id.body);
+        bodyParts[2] = findViewById(R.id.arm1);
+        bodyParts[3] = findViewById(R.id.arm2);
+        bodyParts[4] = findViewById(R.id.leg1);
+        bodyParts[5] = findViewById(R.id.leg2);
+
         //Get the word for the game from MainActivity
         this.gameWord = getIntent().getStringExtra("beginnerWord");
         this.numCharacters = gameWord.length();
