@@ -39,6 +39,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/head"
+            android:layout_width="53dp"
+            android:layout_height="54dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="129dp"
+            android:layout_marginEnd="110dp"
+            android:layout_marginRight="110dp"
+            app:srcCompat="@drawable/android_projecthangman_head" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/wrongLetters"
         android:layout_width="wrap_content"
@@ -56,22 +74,31 @@
         app:layout_constraintTop_toBottomOf="@+id/home" />
 
     <EditText
-        android:id="@+id/guessText"
+        android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="85dp"
-        android:layout_marginLeft="85dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="85dp"
-        android:layout_marginRight="85dp"
-        android:layout_marginBottom="69dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="650dp"
         android:ems="10"
-        android:hint="Guess"
-        android:inputType="textPersonName"
-        android:gravity="center_horizontal"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/home"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout"
+        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.505" />
+
+    <project.hangman.MyKeyboard
+        android:id="@+id/keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="434dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="400dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wrongLetters" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
 </android.support.constraint.ConstraintLayout>

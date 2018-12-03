@@ -3,13 +3,26 @@ package project.hangman;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.GridView;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
@@ -31,6 +44,16 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+
+        EditText editText = (EditText) findViewById(R.id.editText);
+        MyKeyboard keyboard = (MyKeyboard) findViewById(R.id.keyboard);
+        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setTextIsSelectable(true);
+
+        InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
+        keyboard.setInputConnection(ic);
+
 
         homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -85,4 +108,6 @@ public class GameActivity extends AppCompatActivity {
         String letters = wrongLettersString + input;
         this.wrongLettersString = letters;
     }
+
+
 }

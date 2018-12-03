@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity {
     Button beginnerButton;
@@ -18,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         beginnerButton = findViewById(R.id.beginner); //change button to name of the beginner button thing
         beginnerButton.setOnClickListener(new View.OnClickListener() {
