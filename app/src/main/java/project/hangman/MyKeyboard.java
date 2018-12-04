@@ -10,8 +10,6 @@ import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import project.hangman.R;
-
 public class MyKeyboard extends LinearLayout implements View.OnClickListener {
 
     private Button button1, button2, button3, button4,
@@ -24,7 +22,8 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
     private SparseArray<String> keyValues = new SparseArray<>();
     private InputConnection inputConnection;
     private String value;
-    private String currLtr;
+    private String currentLetter;
+    private GameActivity gameActivity;
 
     public MyKeyboard(Context context) {
         this(context, null, 0);
@@ -125,6 +124,8 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         keyValues.put(R.id.button25, "Y");
         keyValues.put(R.id.button26, "Z");
         keyValues.put(R.id.button_enter, "\b");
+
+        gameActivity = (GameActivity) context;
     }
     @Override
     public void onClick(View view) {
@@ -137,10 +138,10 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
                 inputConnection.commitText("", 1);
             }
         } else if (view.getId() == R.id.button_enter) {
-            currLtr = value;
+            currentLetter = value;
             value = "";
             inputConnection.deleteSurroundingText(1, 0);
-
+            gameActivity.doSomething();
         } else {
             value = keyValues.get(view.getId());
             inputConnection.commitText(value, 1);
@@ -151,7 +152,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         inputConnection = ic;
     }
 
-    public String getValue() { return currLtr;}
+    public String getValue() { return currentLetter;}
 
 
 }

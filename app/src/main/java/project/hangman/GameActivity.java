@@ -125,8 +125,7 @@ public class GameActivity extends AppCompatActivity {
     }
     //Helper, adds the wrong letters to the wrongLettersString
     private void addWrongLetter(final String input) {
-        String letters = wrongLettersString + input;
-        this.wrongLettersString = letters;
+        this.wrongLettersString += input;
     }
 
     public void playGame() {
@@ -144,6 +143,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
-
-
+    public void doSomething() {
+        Toast.makeText(getApplicationContext(), "I'm doing something with a private variable " + this.wrongLettersString, Toast.LENGTH_SHORT).show();
+    }
 }
