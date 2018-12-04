@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
     //The game word
     public String gameWord;
     //The wrong letters
-    private String wrongLettersString;
+    private String wrongLettersString = "";
     //number of characters in the word
     private int numCharacters;
     //number of correct guesses
@@ -91,17 +91,13 @@ public class GameActivity extends AppCompatActivity {
         }
 
         Log.d(TAG, "word: " + gameWord + " length: " + numCharacters);
-        //Remove this line later, update text on button press in future
-        this.displayWrongLetters("Wrong Letters");
-
-        //playGame();
     }
-    private void displayWrongLetters(final String letters) {
-        if (letters == null) {
+    private void displayWrongLetters() {
+        if (this.wrongLettersString == null) {
             return;
         }
         //Change to uppercase
-        String toDisplay = letters.toUpperCase();
+        String toDisplay = this.wrongLettersString.toUpperCase();
         //Change to an char[], sort by alphabetical
         char[] toSort = toDisplay.toCharArray();
         Arrays.sort(toSort);
@@ -134,18 +130,24 @@ public class GameActivity extends AppCompatActivity {
     public void playGame() {
         ltr = keyboard.getValue();
         if (checkInWord(ltr)) {
-            //make that letter visible
+            //make that letter visible and check for game win
         } else {
             if (currentBodyPart == numBodyParts - 1) {
-                //gameWin(false);
+                gameWin(false);
             }
+            displayWrongLetters();
             currentBodyPart++;
             bodyParts[currentBodyPart].setVisibility(View.VISIBLE);
-
         }
 
     }
-    public void doSomething() {
-        Toast.makeText(getApplicationContext(), "I'm doing something with a private variable " + this.wrongLettersString, Toast.LENGTH_SHORT).show();
+    private void gameWin(boolean win) {
+        //Should send to a different activity page that says either win or loss
+        if (win) {
+            Toast.makeText(getApplicationContext(), "win", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "loss", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
