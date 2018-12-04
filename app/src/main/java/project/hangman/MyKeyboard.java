@@ -23,6 +23,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
 
     private SparseArray<String> keyValues = new SparseArray<>();
     private InputConnection inputConnection;
+    private String value;
 
     public MyKeyboard(Context context) {
         this(context, null, 0);
@@ -123,13 +124,13 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
     public void onClick(View view) {
         if (inputConnection == null)
             return;
-        String value = keyValues.get(view.getId());
+        value = keyValues.get(view.getId());
         inputConnection.commitText(value, 1);
-
-
     }
 
     public void setInputConnection(InputConnection ic) {
         inputConnection = ic;
     }
+
+    public String getValue() { return value;}
 }

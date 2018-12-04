@@ -41,6 +41,8 @@ public class GameActivity extends AppCompatActivity {
     private int currentBodyPart;
     //array of body parts images
     private ImageView[] bodyParts;
+    private MyKeyboard keyboard;
+    private EditText editText;
 
 
     Button homeButton;
@@ -50,8 +52,8 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
 
-        EditText editText = (EditText) findViewById(R.id.editText);
-        MyKeyboard keyboard = (MyKeyboard) findViewById(R.id.keyboard);
+        editText = (EditText) findViewById(R.id.editText);
+        keyboard = (MyKeyboard) findViewById(R.id.keyboard);
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setTextIsSelectable(true);
 
@@ -83,9 +85,12 @@ public class GameActivity extends AppCompatActivity {
         this.gameWord = getIntent().getStringExtra("beginnerWord");
         this.numCharacters = gameWord.length();
         this.numCorrect = 0;
+
         Log.d(TAG, "word: " + gameWord + " length: " + numCharacters);
         //Remove this line later, update text on button press in future
         this.displayWrongLetters("Wrong Letters");
+
+        playGame();
     }
     private void displayWrongLetters(final String letters) {
         if (letters == null) {
@@ -121,6 +126,16 @@ public class GameActivity extends AppCompatActivity {
     private void addWrongLetter(final String input) {
         String letters = wrongLettersString + input;
         this.wrongLettersString = letters;
+    }
+
+    public void playGame() {
+        currentBodyPart = 0;
+        numCharacters= gameWord.length();
+        numCorrect = 0;
+        for(int i = 0; i < numBodyParts; i++) {
+            bodyParts[i].setVisibility(View.INVISIBLE);
+        }
+
     }
 
 

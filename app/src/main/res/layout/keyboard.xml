@@ -18,6 +18,7 @@
 
         <Button
             android:id="@+id/button1"
+            style="@android:style/Widget.Material.Light.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -25,6 +26,7 @@
 
         <Button
             android:id="@+id/button2"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
