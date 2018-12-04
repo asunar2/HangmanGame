@@ -125,6 +125,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         keyValues.put(R.id.button26, "Z");
         keyValues.put(R.id.button_enter, "\b");
 
+        //So context is like Object, you have to cast it
         gameActivity = (GameActivity) context;
     }
     @Override
@@ -141,7 +142,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
             currentLetter = value;
             value = "";
             inputConnection.deleteSurroundingText(1, 0);
-            gameActivity.doSomething();
+            gameActivity.playGame();
         } else {
             value = keyValues.get(view.getId());
             inputConnection.commitText(value, 1);

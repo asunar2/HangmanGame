@@ -34,11 +34,10 @@ public class GameActivity extends AppCompatActivity {
     //number of characters in the word
     private int numCharacters;
     //number of correct guesses
-    private int numCorrect;
     //number of body parts
     private int numBodyParts = 6;
     //current body part (0 = head, 2 = body... 5 = one leg)
-    private int currentBodyPart;
+    private int currentBodyPart = -1;
     //array of body parts images
     private ImageView[] bodyParts;
     private MyKeyboard keyboard;
@@ -83,9 +82,13 @@ public class GameActivity extends AppCompatActivity {
         bodyParts[5] = findViewById(R.id.leg2);
 
         //Get the word for the game from MainActivity
-        this.gameWord = getIntent().getStringExtra("beginnerWord");
+        this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
         this.numCharacters = gameWord.length();
-        this.numCorrect = 0;
+
+        //Makes all body parts invisible at first
+        for(int i = 0; i < numBodyParts; i++) {
+            bodyParts[i].setVisibility(View.INVISIBLE);
+        }
 
         Log.d(TAG, "word: " + gameWord + " length: " + numCharacters);
         //Remove this line later, update text on button press in future
@@ -129,16 +132,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void playGame() {
-        currentBodyPart = 0;
-        numCharacters= gameWord.length();
-        numCorrect = 0;
-        for(int i = 0; i < numBodyParts; i++) {
-            bodyParts[i].setVisibility(View.INVISIBLE);
-        }
         ltr = keyboard.getValue();
         if (checkInWord(ltr)) {
             //make that letter visible
         } else {
+            if (currentBodyPart == numBodyParts - 1) {
+                //gameWin(false);
+            }
+            currentBodyPart++;
+            bodyParts[currentBodyPart].setVisibility(View.VISIBLE);
 
         }
 
