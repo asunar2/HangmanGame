@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     Button beginnerButton;
     //FOR TESTING, hardcoded word
-    String testing = "testing123";
+    String testing = "testing";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
