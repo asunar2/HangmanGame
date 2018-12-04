@@ -11,16 +11,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.GridView;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.view.Gravity;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -33,7 +25,8 @@ public class GameActivity extends AppCompatActivity {
     private String wrongLettersString = "";
     //number of characters in the word
     private int numCharacters;
-    //number of correct guesses
+    //already guessed letters
+    private String alreadyGuessed = "";
     //number of body parts
     private int numBodyParts = 6;
     //current body part (0 = head, 2 = body... 5 = one leg)
@@ -128,7 +121,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void playGame() {
+        Log.d(TAG, "current wrongLettersString " + wrongLettersString);
         ltr = keyboard.getValue();
+        if (!alreadyGuessed.contains(ltr)) {
+            alreadyGuessed += ltr;
+        } else {
+            Toast.makeText(getApplicationContext(), "You've already guessed that", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (checkInWord(ltr)) {
             //make that letter visible and check for game win
         } else {
