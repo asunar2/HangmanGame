@@ -28,7 +28,7 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
     //The game word
-    private String gameWord;
+    public String gameWord;
     //The wrong letters
     private String wrongLettersString;
     //number of characters in the word
@@ -43,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView[] bodyParts;
     private MyKeyboard keyboard;
     private EditText editText;
+    private String ltr;
 
 
     Button homeButton;
@@ -90,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
         //Remove this line later, update text on button press in future
         this.displayWrongLetters("Wrong Letters");
 
-        playGame();
+        //playGame();
     }
     private void displayWrongLetters(final String letters) {
         if (letters == null) {
@@ -134,6 +135,12 @@ public class GameActivity extends AppCompatActivity {
         numCorrect = 0;
         for(int i = 0; i < numBodyParts; i++) {
             bodyParts[i].setVisibility(View.INVISIBLE);
+        }
+        ltr = keyboard.getValue();
+        if (checkInWord(ltr)) {
+            //make that letter visible
+        } else {
+
         }
 
     }

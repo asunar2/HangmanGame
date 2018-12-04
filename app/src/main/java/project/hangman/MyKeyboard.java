@@ -19,11 +19,12 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
             button9, button10, button11, button12,
             button13, button14, button15, button16, button17,
             button18, button19, button20, button21, button22,
-            button23, button24, button25, button26;
+            button23, button24, button25, button26, buttonDelete, buttonEnter;
 
     private SparseArray<String> keyValues = new SparseArray<>();
     private InputConnection inputConnection;
     private String value;
+    private String currLtr;
 
     public MyKeyboard(Context context) {
         this(context, null, 0);
@@ -91,6 +92,10 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         button25.setOnClickListener(this);
         button26 = (Button) findViewById(R.id.button26);
         button26.setOnClickListener(this);
+        buttonDelete = (Button) findViewById(R.id.button_delete);
+        buttonDelete.setOnClickListener(this);
+        buttonEnter = (Button) findViewById(R.id.button_enter);
+        buttonEnter.setOnClickListener(this);
 
 
         keyValues.put(R.id.button1, "A");
@@ -119,18 +124,34 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         keyValues.put(R.id.button24, "X");
         keyValues.put(R.id.button25, "Y");
         keyValues.put(R.id.button26, "Z");
+        keyValues.put(R.id.button_enter, "\b");
     }
     @Override
     public void onClick(View view) {
-        if (inputConnection == null)
-            return;
-        value = keyValues.get(view.getId());
-        inputConnection.commitText(value, 1);
+        if (view.getId() == R.id.button_delete) {
+            CharSequence selectedText = inputConnection.getSelectedText(0);
+
+            if (TextUtils.isEmpty(selectedText)) {
+                inputConnection.deleteSurroundingText(1, 0);
+            } else {
+                inputConnection.commitText("", 1);
+            }
+        } else if (view.getId() == R.id.button_enter) {
+            currLtr = value;
+            value = "";
+            inputConnection.deleteSurroundingText(1, 0);
+
+        } else {
+            value = keyValues.get(view.getId());
+            inputConnection.commitText(value, 1);
+        }
     }
 
     public void setInputConnection(InputConnection ic) {
         inputConnection = ic;
     }
 
-    public String getValue() { return value;}
+    public String getValue() { return currLtr;}
+
+
 }
