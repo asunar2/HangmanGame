@@ -1,11 +1,15 @@
 package project.hangman;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -33,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     private int currentBodyPart = -1;
     //array of body parts images
     private ImageView[] bodyParts;
+    private TextView[] wordTextView;
     private MyKeyboard keyboard;
     private EditText editText;
     private String ltr;
@@ -77,6 +82,17 @@ public class GameActivity extends AppCompatActivity {
         //Get the word for the game from MainActivity
         this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
         this.numCharacters = gameWord.length();
+
+        wordTextView = new TextView[numCharacters];
+        for (int i = 0; i < numCharacters; i++) {
+            wordTextView[i] = new TextView(this);
+            wordTextView[i].setText(""+gameWord.charAt(i));
+
+            wordTextView[i].setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+            wordTextView[i].setGravity(Gravity.CENTER);
+            wordTextView[i].setTextColor(Color.WHITE);
+        }
+
 
         //Makes all body parts invisible at first
         for(int i = 0; i < numBodyParts; i++) {
@@ -131,6 +147,11 @@ public class GameActivity extends AppCompatActivity {
         }
         if (checkInWord(ltr)) {
             //make that letter visible and check for game win
+            for (int i = 0; i < numCharacters; i++) {
+                if (String.valueOf(gameWord.charAt(i)).equals(ltr)) {
+                    wordTextView[i].setTextColor(Color.BLACK);
+                }
+            }
         } else {
             if (currentBodyPart == numBodyParts - 1) {
                 gameWin(false);
