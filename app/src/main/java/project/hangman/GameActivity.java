@@ -168,6 +168,8 @@ public class GameActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "win", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), "loss", Toast.LENGTH_SHORT).show();
+            Intent myIntent = new Intent(GameActivity.this, LosingPage.class);
+            GameActivity.this.startActivity(myIntent);
         }
 
     }
