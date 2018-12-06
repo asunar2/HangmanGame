@@ -43,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
     private MyKeyboard keyboard;
     private EditText editText;
     private String ltr;
+    private int numCharsCorrect = 0;
 
 
     Button homeButton;
@@ -160,7 +161,11 @@ public class GameActivity extends AppCompatActivity {
             for (int i = 0; i < numCharacters; i++) {
                 if (String.valueOf(gameWord.charAt(i)).equals(ltr)) {
                     wordTextView[i].setTextColor(Color.BLACK);
+                    numCharsCorrect++;
                 }
+            }
+            if(numCharsCorrect == numCharacters) {
+                gameWin(true);
             }
         } else {
             if (currentBodyPart == 5) {
