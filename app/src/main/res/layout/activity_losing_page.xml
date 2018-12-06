@@ -11,10 +11,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <Button
             android:id="@+id/losertohome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Play Again" />
+            android:text="@string/play_again" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

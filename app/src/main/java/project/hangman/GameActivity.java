@@ -147,6 +147,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void playGame() {
+        if (currentBodyPart == numBodyParts - 1) {
+            gameWin(false);
+        }
         Log.d(TAG, "current wrongLettersString " + wrongLettersString);
         ltr = keyboard.getValue();
         if (!alreadyGuessed.contains(ltr)) {
@@ -160,11 +163,21 @@ public class GameActivity extends AppCompatActivity {
             for (int i = 0; i < numCharacters; i++) {
                 if (String.valueOf(gameWord.charAt(i)).equals(ltr)) {
                     wordTextView[i].setTextColor(Color.BLACK);
+                    boolean isOver = true;
+                    for (int j = 0; j < wordTextView.length; j++) {
+                        if (!(wordTextView[j].getCurrentTextColor() == Color.BLACK)) {
+                            isOver = false;
+                        }
+                    }
+                    if (isOver) {
+                        gameWin(true);
+                    }
                 }
             }
         } else {
-            if (currentBodyPart == 5) {
+            if (currentBodyPart == numBodyParts - 1) {
                 gameWin(false);
+                return;
             }
             displayWrongLetters();
             currentBodyPart++;
@@ -176,6 +189,8 @@ public class GameActivity extends AppCompatActivity {
         //Should send to a different activity page that says either win or loss
         if (win) {
             Toast.makeText(getApplicationContext(), "win", Toast.LENGTH_SHORT).show();
+            Intent myIntent = new Intent(GameActivity.this, WinningPage.class);
+            GameActivity.this.startActivity(myIntent);
         } else {
             Toast.makeText(getApplicationContext(), "loss", Toast.LENGTH_SHORT).show();
             Intent myIntent = new Intent(GameActivity.this, LosingPage.class);

@@ -4,5 +4,7 @@
     <string name="noose">The Noose</string>
     <string name="head">The Head</string>
     <string name="body">The Body</string>
+    <string name="play_again">Play Again</string>
+    <string name="loserimage">loserimage</string>
 
 </resources>
