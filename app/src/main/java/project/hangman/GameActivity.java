@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
     private int currentBodyPart = -1;
     //array of body parts images
     private ImageView[] bodyParts;
+    private LinearLayout wordLayout;
     private TextView[] wordTextView;
     private MyKeyboard keyboard;
     private EditText editText;
@@ -83,7 +85,11 @@ public class GameActivity extends AppCompatActivity {
         this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
         this.numCharacters = gameWord.length();
 
+        wordLayout = findViewById(R.id.correctWord);
+
+        //array of TextViews of each character in the word
         wordTextView = new TextView[numCharacters];
+        wordLayout.removeAllViews();
         for (int i = 0; i < numCharacters; i++) {
             wordTextView[i] = new TextView(this);
             wordTextView[i].setText(""+gameWord.charAt(i));
@@ -91,6 +97,10 @@ public class GameActivity extends AppCompatActivity {
             wordTextView[i].setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
             wordTextView[i].setGravity(Gravity.CENTER);
             wordTextView[i].setTextColor(Color.WHITE);
+            wordTextView[i].setBackgroundResource(R.drawable.letter_dash_background);
+
+            //add to wordLayout
+            wordLayout.addView(wordTextView[i]);
         }
 
 
