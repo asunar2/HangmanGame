@@ -168,7 +168,7 @@ public class GameActivity extends AppCompatActivity {
                 gameWin(true);
             }
         } else {
-            if (currentBodyPart == 5) {
+            if (currentBodyPart == numBodyParts - 1) {
                 gameWin(false);
             }
             displayWrongLetters();
@@ -181,6 +181,8 @@ public class GameActivity extends AppCompatActivity {
         //Should send to a different activity page that says either win or loss
         if (win) {
             Toast.makeText(getApplicationContext(), "win", Toast.LENGTH_SHORT).show();
+            Intent myIntent = new Intent(GameActivity.this, WinningPage.class);
+            GameActivity.this.startActivity(myIntent);
         } else {
             Toast.makeText(getApplicationContext(), "loss", Toast.LENGTH_SHORT).show();
             Intent myIntent = new Intent(GameActivity.this, LosingPage.class);
