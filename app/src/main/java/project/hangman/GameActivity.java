@@ -152,6 +152,9 @@ public class GameActivity extends AppCompatActivity {
         ltr = keyboard.getValue();
         if (!alreadyGuessed.contains(ltr)) {
             alreadyGuessed += ltr;
+            if (wrongLettersString.length() == numBodyParts) {
+                gameWin(false);
+            }
         } else {
             Toast.makeText(getApplicationContext(), "You've already guessed that", Toast.LENGTH_SHORT).show();
             return;
@@ -170,10 +173,12 @@ public class GameActivity extends AppCompatActivity {
         } else {
             if (currentBodyPart == numBodyParts - 1) {
                 gameWin(false);
+            } else {
+                displayWrongLetters();
+                currentBodyPart++;
+                bodyParts[currentBodyPart].setVisibility(View.VISIBLE);
             }
-            displayWrongLetters();
-            currentBodyPart++;
-            bodyParts[currentBodyPart].setVisibility(View.VISIBLE);
+
         }
 
     }
