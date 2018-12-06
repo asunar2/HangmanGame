@@ -6,16 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".LosingPage">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/losertohome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="423dp"
+        android:layout_marginEnd="139dp"
+        android:layout_marginRight="139dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/play_again"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-        <Button
-            android:id="@+id/losertohome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/play_again" />
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
