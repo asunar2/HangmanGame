@@ -18,9 +18,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.CountDownTimer;
 
 import java.util.Arrays;
 import java.util.Random;
+
 
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
@@ -44,6 +46,10 @@ public class GameActivity extends AppCompatActivity {
     private EditText editText;
     private String ltr;
     private int numCharsCorrect = 0;
+    private static int difficultyLevel; // 0 = beginner, 1 = advanced
+    TextView timertext;
+    Button timer;
+    public int counter = 0;
 
 
     Button homeButton;
@@ -83,8 +89,14 @@ public class GameActivity extends AppCompatActivity {
         bodyParts[5] = findViewById(R.id.leg2);
 
         //Get the word for the game from MainActivity
-        this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
+        if (difficultyLevel == 0) {
+            this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
+        }
+        if (difficultyLevel == 1) {
+            this.gameWord = getIntent().getStringExtra("advancedWord").toUpperCase();
+        }
         this.numCharacters = gameWord.length();
+        timertext = findViewById(R.id.timertext);
 
         wordLayout = findViewById(R.id.correctWord);
 
@@ -149,6 +161,23 @@ public class GameActivity extends AppCompatActivity {
 
     public void playGame() {
         Log.d(TAG, "current wrongLettersString " + wrongLettersString);
+        if (GameActivity.getDifficultyLevel() == 1) {
+            new CountDownTimer(30000, 1000){
+                public void onTick(long millisUntilFinished){
+                    timertext.setText(String.valueOf(counter));
+                    counter++;
+                }
+                public  void onFinish(){
+                    timertext.setText("FINISH!!");
+                    if (numCharsCorrect == numCharacters) {
+                        gameWin(true);
+                    } else {
+                        gameWin(false);
+                    }
+                }
+            }.start();
+
+        }
         ltr = keyboard.getValue();
         if (!alreadyGuessed.contains(ltr)) {
             alreadyGuessed += ltr;
@@ -195,4 +224,8 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+
+    public static int getDifficultyLevel() {return difficultyLevel;}
+
+    public static void setDifficultyLevel(int toSet) {difficultyLevel = toSet;}
 }

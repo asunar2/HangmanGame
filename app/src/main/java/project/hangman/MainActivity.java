@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button beginnerButton;
+    Button advancedButton;
     //FOR TESTING, hardcoded word
     String testing = "testing";
     @Override
@@ -33,9 +34,25 @@ public class MainActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                 //beginnerWord hardcoded to String testing
                 myIntent.putExtra("beginnerWord", testing);
+                GameActivity.setDifficultyLevel(0);
                 MainActivity.this.startActivity(myIntent);
             }
         });
+
+        advancedButton = findViewById(R.id.advanced);
+        advancedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //go to a new android page thing
+                Toast.makeText(getApplicationContext(), "Starting advanced game", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
+                //beginnerWord hardcoded to String testing
+                myIntent.putExtra("advancedWord", testing);
+                GameActivity.setDifficultyLevel(1);
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
+
         //Needs to be run as an AsyncTask bc it requires network access
         new WordMaker().execute();
 

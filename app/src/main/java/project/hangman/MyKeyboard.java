@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.os.CountDownTimer;
+import android.widget.TextView;
 
 public class MyKeyboard extends LinearLayout implements View.OnClickListener {
 
@@ -24,6 +26,8 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
     private String value;
     private String currentLetter;
     private GameActivity gameActivity;
+
+
 
     public MyKeyboard(Context context) {
         this(context, null, 0);
@@ -125,6 +129,8 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         keyValues.put(R.id.button26, "Z");
         keyValues.put(R.id.button_enter, "\b");
 
+
+
         //So context is like Object, you have to cast it
         gameActivity = (GameActivity) context;
     }
@@ -139,6 +145,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
                 inputConnection.commitText("", 1);
             }
         } else if (view.getId() == R.id.button_enter) {
+
             currentLetter = value;
             value = "";
             inputConnection.deleteSurroundingText(1, 0);
