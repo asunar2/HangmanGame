@@ -163,7 +163,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         } else {
-            if (currentBodyPart == numBodyParts - 1) {
+            if (currentBodyPart == 5) {
                 gameWin(false);
             }
             displayWrongLetters();
