@@ -162,13 +162,13 @@ public class GameActivity extends AppCompatActivity {
     public void playGame() {
         Log.d(TAG, "current wrongLettersString " + wrongLettersString);
         if (GameActivity.getDifficultyLevel() == 1) {
-            new CountDownTimer(30000, 1000){
+            new CountDownTimer(5000, 1000){
                 public void onTick(long millisUntilFinished){
                     timertext.setText(String.valueOf(counter));
                     counter++;
                 }
                 public  void onFinish(){
-                    timertext.setText("FINISH!!");
+                    timertext.setText("Times Up!");
                     if (numCharsCorrect == numCharacters) {
                         gameWin(true);
                     } else {
