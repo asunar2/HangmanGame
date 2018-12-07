@@ -33,17 +33,16 @@ public class MainActivity extends AppCompatActivity {
 
     Button beginnerButton;
     Button advancedButton;
-    //FOR TESTING, hardcoded word
 
 
-    String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
-    String gameWord = "not null";
+    //String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
+    //String gameWord = "not null";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        /*
         RequestQueue queue = Volley.newRequestQueue(this);
 
         // Request a string response from the provided URL.
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             Log.d("Response", response.getString("word"));
                             gameWord = response.getString("word");
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         queue.add(request);
+        */
 
         beginnerButton = findViewById(R.id.beginner); //change button to name of the beginner button thing
         beginnerButton.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Starting beginner game", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                 //beginnerWord hardcoded to String testing
-                myIntent.putExtra("beginnerWord", gameWord);
+                myIntent.putExtra("beginnerWord", wordPull(0));
                 myIntent.putExtra("difficulty", 0);
                 MainActivity.this.startActivity(myIntent);
             }
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Starting advanced game", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                 //beginnerWord hardcoded to String testing
-                myIntent.putExtra("advancedWord", gameWord);
+                myIntent.putExtra("advancedWord", wordPull(1));
                 myIntent.putExtra("difficulty", 1);
                 MainActivity.this.startActivity(myIntent);
             }
@@ -110,5 +111,55 @@ public class MainActivity extends AppCompatActivity {
         //Needs to be run as an AsyncTask bc it requires network access
         //new WordMaker().execute();
 
+    }
+
+    private String wordPull(int gameDifficulty) {
+        final String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
+        String gameWord = "not null";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        // Request a string response from the provided URL.
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(final JSONObject response) {
+                        Log.d("Response", response.toString());
+                        try {
+                            String potentialWord;
+                            Log.d("Response", response.getString("word"));
+                            potentialWord = response.getString("word");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                Log.w("Response", error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("X-RapidAPI-Key", "CiQsyIyhApmshwVvH76egK5yYwYvp161sI2jsnEQ86QFhSqxhp");
+                Log.d("Response", params.toString());
+                return params;
+            }
+        };
+
+        queue.add(request);
+    }
+
+    private boolean wordDifficultyCheck(String word, int difficulty) {
+        int maxLength = 100;
+        if (difficulty == 0) {
+            maxLength = 8;
+        }
+        return word.length() > maxLength;
     }
 }
