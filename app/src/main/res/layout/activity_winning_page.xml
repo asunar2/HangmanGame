@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WinningPage">
+    tools:context=".WinningPage"
+    android:background="@color/colorAccent">
 
     <Button
         android:id="@+id/winnertohome"
@@ -21,4 +22,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/winnerPic"
+        android:src="@drawable/winnerPicture"
+        />
 </android.support.constraint.ConstraintLayout>

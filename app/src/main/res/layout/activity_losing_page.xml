@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LosingPage">
+    tools:context=".LosingPage"
+    android:background="@color/colorPrimary">
 
     <Button
         android:id="@+id/losertohome"
