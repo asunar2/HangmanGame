@@ -46,8 +46,9 @@ public class GameActivity extends AppCompatActivity {
     private EditText editText;
     private String ltr;
     private int numCharsCorrect = 0;
-    private static int difficultyLevel; // 0 = beginner, 1 = advanced
+    private int difficultyLevel; // 0 = beginner, 1 = advanced
     TextView timertext;
+    TextView correctWord;
     Button timer;
     public int counter = 0;
 
@@ -89,14 +90,15 @@ public class GameActivity extends AppCompatActivity {
         bodyParts[5] = findViewById(R.id.leg2);
 
         //Get the word for the game from MainActivity
-        if (difficultyLevel == 0) {
+        this.difficultyLevel = getIntent().getIntExtra("difficulty", 0);
+        if (this.difficultyLevel == 0) {
             this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
         }
-        if (difficultyLevel == 1) {
+        if (this.difficultyLevel == 1) {
             this.gameWord = getIntent().getStringExtra("advancedWord").toUpperCase();
         }
         this.numCharacters = gameWord.length();
-        timertext = findViewById(R.id.timertext);
+        //timertext = findViewById(R.id.timertext);
 
         wordLayout = findViewById(R.id.correctWord);
 
@@ -105,7 +107,7 @@ public class GameActivity extends AppCompatActivity {
         wordLayout.removeAllViews();
         for (int i = 0; i < numCharacters; i++) {
             wordTextView[i] = new TextView(this);
-            wordTextView[i].setText(""+gameWord.charAt(i));
+            wordTextView[i].setText("" + gameWord.charAt(i));
 
             wordTextView[i].setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
             wordTextView[i].setGravity(Gravity.CENTER);
@@ -161,8 +163,8 @@ public class GameActivity extends AppCompatActivity {
 
     public void playGame() {
         Log.d(TAG, "current wrongLettersString " + wrongLettersString);
-        if (GameActivity.getDifficultyLevel() == 1) {
-            new CountDownTimer(5000, 1000){
+        if (this.difficultyLevel == 1) {
+            new CountDownTimer(30000, 1000){
                 public void onTick(long millisUntilFinished){
                     timertext.setText(String.valueOf(counter));
                     counter++;
@@ -225,7 +227,5 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public static int getDifficultyLevel() {return difficultyLevel;}
-
-    public static void setDifficultyLevel(int toSet) {difficultyLevel = toSet;}
+    public int getDifficultyLevel() {return difficultyLevel;}
 }

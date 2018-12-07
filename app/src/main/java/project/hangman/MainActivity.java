@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                 //beginnerWord hardcoded to String testing
                 myIntent.putExtra("beginnerWord", gameWord);
-                GameActivity.setDifficultyLevel(0);
+                myIntent.putExtra("difficulty", 0);
                 MainActivity.this.startActivity(myIntent);
             }
         });
@@ -102,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                 //beginnerWord hardcoded to String testing
                 myIntent.putExtra("advancedWord", gameWord);
-                GameActivity.setDifficultyLevel(1);
+                myIntent.putExtra("difficulty", 1);
                 MainActivity.this.startActivity(myIntent);
             }
         });
 
         //Needs to be run as an AsyncTask bc it requires network access
-        new WordMaker().execute();
+        //new WordMaker().execute();
 
     }
 }
