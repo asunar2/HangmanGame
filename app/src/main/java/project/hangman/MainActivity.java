@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
-    //String gameWord = "not null";
+    String gameWord = "not null";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
     private String wordPull(int gameDifficulty) {
         final String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
-        String gameWord = "not null";
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -132,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
                             String potentialWord;
                             Log.d("Response", response.getString("word"));
                             potentialWord = response.getString("word");
+                            //CHECK IF IT'S GOOD, THIS IS TEMPORARY
+                            gameWord = potentialWord;
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -153,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         queue.add(request);
+        return gameWord;
     }
 
     private boolean wordDifficultyCheck(String word, int difficulty) {
