@@ -27,6 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/winnerPic"
-        android:src="@drawable/winner_picture"
+        android:src="@drawable/winner_pic"
         />
 </android.support.constraint.ConstraintLayout>
