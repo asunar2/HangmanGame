@@ -48,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
     private EditText editText;
     private String ltr;
     private int numCharsCorrect = 0;
-    private int difficultyLevel; // 0 = beginner, 1 = advanced
+    private static int difficultyLevel; // 0 = beginner, 1 = advanced
     TextView timertext;
     TextView correctWord;
     Button timer;
@@ -92,24 +92,16 @@ public class GameActivity extends AppCompatActivity {
         bodyParts[5] = findViewById(R.id.leg2);
 
         //Get the word for the game from MainActivity
-        this.difficultyLevel = getIntent().getIntExtra("difficulty", 0);
-        if (this.difficultyLevel == 0) {
+        difficultyLevel = getIntent().getIntExtra("difficulty", 0);
+        if (difficultyLevel == 0) {
             this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
-            this.gameWordArray = gameWord.toCharArray();
+
         }
-        if (this.difficultyLevel == 1) {
+        if (difficultyLevel == 1) {
             this.gameWord = getIntent().getStringExtra("advancedWord").toUpperCase();
-            this.gameWordArray = gameWord.toCharArray();
+
         }
-        int count = 0;
-        for (char c : gameWordArray) {
-            if (c == ' ') {
-                count++;
-            }
-        }
-        //Account for spaces
-        this.numCharacters = gameWord.length() - count;
-        Log.d(TAG, "length1=" + gameWord.length() +" length2=" + numCharacters);
+
         //timertext = findViewById(R.id.timertext);
 
         wordLayout = findViewById(R.id.correctWord);
@@ -175,23 +167,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void playGame() {
         Log.d(TAG, "current wrongLettersString " + wrongLettersString);
-        if (this.difficultyLevel == 1) {
-            new CountDownTimer(30000, 1000){
-                public void onTick(long millisUntilFinished){
-                    timertext.setText(String.valueOf(counter));
-                    counter++;
-                }
-                public  void onFinish(){
-                    timertext.setText("Times Up!");
-                    if (numCharsCorrect == numCharacters) {
-                        gameWin(true);
-                    } else {
-                        gameWin(false);
-                    }
-                }
-            }.start();
-
-        }
         ltr = keyboard.getValue();
         if (!alreadyGuessed.contains(ltr)) {
             alreadyGuessed += ltr;
@@ -210,7 +185,7 @@ public class GameActivity extends AppCompatActivity {
                     numCharsCorrect++;
                 }
             }
-            if(numCharsCorrect == numCharacters) {
+            if(numCharsCorrect == gameWord.length()) {
                 gameWin(true);
             }
         } else {
@@ -237,6 +212,10 @@ public class GameActivity extends AppCompatActivity {
             GameActivity.this.startActivity(myIntent);
         }
 
+    }
+
+    public static void setDifficultyLevel(int level) {
+        difficultyLevel = level;
     }
 
     public int getDifficultyLevel() {return difficultyLevel;}

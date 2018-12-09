@@ -57,18 +57,11 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(final JSONObject response) {
-                        Log.d("Response", response.toString());
-                        try {
-                            Log.d("Response", response.getString("word"));
-                            potentialWord= response.getString("word");
-                            Log.d("Potential**********", potentialWord);
-                            int spaceOccurrence = potentialWord.indexOf(" ");
-                            Log.d("SPACE INDEX********", String.valueOf(spaceOccurrence));
-                            if (spaceOccurrence != -1) {
-                                potentialWord = potentialWord.substring(0, spaceOccurrence);
-                            }
-                            gameWord = potentialWord;
 
+                        try {
+                            Log.d("Response", response.toString());
+                            Log.d("Response", response.getString("word"));
+                            gameWord = response.getString("word");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -79,14 +72,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("Response", error.toString());
             }
         }) {
-            @Override
             public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("X-RapidAPI-Key", "CiQsyIyhApmshwVvH76egK5yYwYvp161sI2jsnEQ86QFhSqxhp");
-                Log.d("Response", params.toString());
-                return params;
-            }
-        };
+            Map<String, String>  params = new HashMap<String, String>();
+            params.put("X-RapidAPI-Key", "CiQsyIyhApmshwVvH76egK5yYwYvp161sI2jsnEQ86QFhSqxhp");
+            Log.d("Response", params.toString());
+            return params;
+        }
+    };
+
 
         queue.add(request);
 
@@ -101,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 //beginnerWord hardcoded to String testing
                 myIntent.putExtra("beginnerWord", gameWord);
                 myIntent.putExtra("difficulty", 0);
+                GameActivity.setDifficultyLevel(0);
                 MainActivity.this.startActivity(myIntent);
             }
         });
@@ -115,69 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 //beginnerWord hardcoded to String testing
                 myIntent.putExtra("advancedWord", gameWord);
                 myIntent.putExtra("difficulty", 1);
+                GameActivity.setDifficultyLevel(1);
                 MainActivity.this.startActivity(myIntent);
             }
         });
 
-        //Needs to be run as an AsyncTask bc it requires network access
-        //new WordMaker().execute();
-
-    }
-
-    private String wordPull(final int gameDifficulty) {
-        final String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        // Request a string response from the provided URL.
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(final JSONObject response) {
-                        Log.d("Response", response.toString());
-                        try {
-                            Log.d("Response", response.getString("word"));
-                            potentialWord = response.getString("word");
-                            Log.d("Potential**********", potentialWord);
-                            int spaceOccurrence = potentialWord.indexOf(" ");
-                            Log.d("SPACE INDEX********", String.valueOf(spaceOccurrence));
-                            if (spaceOccurrence != -1) {
-                                potentialWord = potentialWord.substring(0, spaceOccurrence);
-                            }
-                            Log.d("After space", potentialWord);
-                            flag = MainActivity.wordDifficultyCheck(potentialWord, gameDifficulty);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(final VolleyError error) {
-                Log.w("Response", error.toString());
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("X-RapidAPI-Key", "CiQsyIyhApmshwVvH76egK5yYwYvp161sI2jsnEQ86QFhSqxhp");
-                Log.d("Response", params.toString());
-                return params;
-            }
-        };
-        do {
-            queue.add(request);
-        } while (!flag);
-        gameWord = potentialWord;
-        return gameWord;
-    }
-
-    private static boolean wordDifficultyCheck(String word, int difficulty) {
-        int maxBeginnerLength = 7;
-        if (difficulty == 0) {
-            return word.length() < maxBeginnerLength;
-        }
-        return word.length() > maxBeginnerLength;
     }
 }
