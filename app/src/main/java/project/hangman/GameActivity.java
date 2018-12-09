@@ -28,6 +28,8 @@ public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
     //The game word
     public String gameWord;
+    //game word in a char[]
+    public char[] gameWordArray;
     //The wrong letters
     private String wrongLettersString = "";
     //number of characters in the word
@@ -93,19 +95,29 @@ public class GameActivity extends AppCompatActivity {
         this.difficultyLevel = getIntent().getIntExtra("difficulty", 0);
         if (this.difficultyLevel == 0) {
             this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
+            this.gameWordArray = gameWord.toCharArray();
         }
         if (this.difficultyLevel == 1) {
             this.gameWord = getIntent().getStringExtra("advancedWord").toUpperCase();
+            this.gameWordArray = gameWord.toCharArray();
         }
-        this.numCharacters = gameWord.length();
+        int count = 0;
+        for (char c : gameWordArray) {
+            if (c == ' ') {
+                count++;
+            }
+        }
+        //Account for spaces
+        this.numCharacters = gameWord.length() - count;
+        Log.d(TAG, "length1=" + gameWord.length() +" length2=" + numCharacters);
         //timertext = findViewById(R.id.timertext);
 
         wordLayout = findViewById(R.id.correctWord);
 
         //array of TextViews of each character in the word
-        wordTextView = new TextView[numCharacters];
+        wordTextView = new TextView[gameWord.length()];
         wordLayout.removeAllViews();
-        for (int i = 0; i < numCharacters; i++) {
+        for (int i = 0; i < gameWord.length(); i++) {
             wordTextView[i] = new TextView(this);
             wordTextView[i].setText("" + gameWord.charAt(i));
 
@@ -192,7 +204,7 @@ public class GameActivity extends AppCompatActivity {
         }
         if (checkInWord(ltr)) {
             //make that letter visible and check for game win
-            for (int i = 0; i < numCharacters; i++) {
+            for (int i = 0; i < gameWord.length(); i++) {
                 if (String.valueOf(gameWord.charAt(i)).equals(ltr)) {
                     wordTextView[i].setTextColor(Color.BLACK);
                     numCharsCorrect++;
