@@ -21,10 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,47 +30,22 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     Button beginnerButton;
-    Button advancedButton;
-
-
-
     String gameWord = "not null";
-    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         apicall();
-
-
         beginnerButton = findViewById(R.id.beginner); //change button to name of the beginner button thing
         beginnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //go to a new android page thing
-                Toast.makeText(getApplicationContext(), "Starting beginner game", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Starting game", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                 //beginnerWord hardcoded to String testing
                 myIntent.putExtra("beginnerWord", gameWord);
-                myIntent.putExtra("difficulty", 0);
-                GameActivity.setDifficultyLevel(0);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
-
-        advancedButton = findViewById(R.id.advanced);
-        advancedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //go to a new android page thing
-                Toast.makeText(getApplicationContext(), "Starting advanced game", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
-                //beginnerWord hardcoded to String testing
-                myIntent.putExtra("advancedWord", gameWord);
-                myIntent.putExtra("difficulty", 1);
-                GameActivity.setDifficultyLevel(1);
                 MainActivity.this.startActivity(myIntent);
             }
         });
@@ -82,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void apicall() {
         final String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
-
         RequestQueue queue = Volley.newRequestQueue(this);
-
         // Request a string response from the provided URL.
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
@@ -115,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 return params;
             }
         };
-
-
         queue.add(request);
-
     }
 }

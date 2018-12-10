@@ -18,10 +18,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.CountDownTimer;
-
 import java.util.Arrays;
-import java.util.Random;
+
 
 
 public class GameActivity extends AppCompatActivity {
@@ -32,8 +30,6 @@ public class GameActivity extends AppCompatActivity {
     public char[] gameWordArray;
     //The wrong letters
     private String wrongLettersString = "";
-    //number of characters in the word
-    private int numCharacters;
     //already guessed letters
     private String alreadyGuessed = "";
     //number of body parts
@@ -48,25 +44,19 @@ public class GameActivity extends AppCompatActivity {
     private EditText editText;
     private String ltr;
     private int numCharsCorrect = 0;
-    private static int difficultyLevel; // 0 = beginner, 1 = advanced
-    TextView timertext;
     TextView correctWord;
-    Button timer;
-    public int counter = 0;
-
-
     Button homeButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-
+        //display and connect the keyboard
         editText = (EditText) findViewById(R.id.editText);
         keyboard = (MyKeyboard) findViewById(R.id.keyboard);
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setTextIsSelectable(true);
-
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         keyboard.setInputConnection(ic);
 
@@ -91,21 +81,13 @@ public class GameActivity extends AppCompatActivity {
         bodyParts[4] = findViewById(R.id.leg1);
         bodyParts[5] = findViewById(R.id.leg2);
 
-        //Get the word for the game from MainActivity
-        difficultyLevel = getIntent().getIntExtra("difficulty", 0);
-        if (difficultyLevel == 0) {
-            this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
+        //set the game word from main activity
+        this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
 
-        }
-        if (difficultyLevel == 1) {
-            this.gameWord = getIntent().getStringExtra("advancedWord").toUpperCase();
-
-        }
-
+        //account for any whitespace or hyphens in the game word
         checkWhitespace();
 
-        //timertext = findViewById(R.id.timertext);
-
+        //set the word layout in activity_game.xml
         wordLayout = findViewById(R.id.correctWord);
 
         //array of TextViews of each character in the word
@@ -123,14 +105,10 @@ public class GameActivity extends AppCompatActivity {
             //add to wordLayout
             wordLayout.addView(wordTextView[i]);
         }
-
-
         //Makes all body parts invisible at first
         for(int i = 0; i < numBodyParts; i++) {
             bodyParts[i].setVisibility(View.INVISIBLE);
         }
-
-        Log.d(TAG, "word: " + gameWord + " length: " + numCharacters);
     }
     private void displayWrongLetters() {
         if (this.wrongLettersString == null) {
@@ -167,12 +145,20 @@ public class GameActivity extends AppCompatActivity {
         this.wrongLettersString += input;
     }
 
+    //accounts for whitespace or hyphens in
     public void checkWhitespace() {
-        if (gameWord.contains(" ") || gameWord.contains("-")) {
-            numCharsCorrect++;
+        gameWordArray = gameWord.toCharArray();
+        for (int i = 0; i < gameWord.length(); i++) {
+            if (gameWordArray[i] == '-') {
+                numCharsCorrect++;
+            }
+            if (gameWordArray[i] == ' ') {
+                numCharsCorrect++;
+            }
         }
     }
 
+    //method called to play the game when letter from keyboard is clicked
     public void playGame() {
         Log.d(TAG, "current wrongLettersString " + wrongLettersString);
         ltr = keyboard.getValue();
@@ -207,6 +193,8 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+
+    //checks to see if game has been won
     private void gameWin(boolean win) {
         //Should send to a different activity page that says either win or loss
         if (win) {
@@ -221,12 +209,4 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
-
-    public static void setDifficultyLevel(int level) {
-        difficultyLevel = level;
-    }
-
-    public int getDifficultyLevel() {return difficultyLevel;}
-
-
 }

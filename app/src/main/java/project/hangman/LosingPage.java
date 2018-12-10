@@ -28,8 +28,6 @@ public class LosingPage extends AppCompatActivity {
                 //go to a new android page thing
                 Toast.makeText(getApplicationContext(), "Going Home", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(LosingPage.this, MainActivity.class);
-                //beginnerWord hardcoded to String testing
-                //myIntent.putExtra("beginnerWord", testing);
                 LosingPage.this.startActivity(myIntent);
             }
         });
