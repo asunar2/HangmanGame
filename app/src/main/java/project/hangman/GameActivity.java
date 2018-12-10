@@ -9,7 +9,6 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -89,7 +88,6 @@ public class GameActivity extends AppCompatActivity {
         this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
         this.gameDefinition = getIntent().getStringExtra("definition");
         this.gamePOS = getIntent().getStringExtra("partOfSpeech").toUpperCase();
-        Log.d("HELLLOOOO", gameDefinition);
 
         //account for any whitespace or hyphens in the game word
         checkWhitespace();

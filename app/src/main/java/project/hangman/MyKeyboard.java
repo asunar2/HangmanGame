@@ -19,7 +19,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
             button9, button10, button11, button12,
             button13, button14, button15, button16, button17,
             button18, button19, button20, button21, button22,
-            button23, button24, button25, button26, buttonDelete, buttonEnter;
+            button23, button24, button25, button26, buttonDelete, buttonEnter, temp;
 
     private SparseArray<String> keyValues = new SparseArray<>();
     private InputConnection inputConnection;
@@ -149,10 +149,14 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
             currentLetter = value;
             value = "";
             inputConnection.deleteSurroundingText(1, 0);
+            if (temp != null) {
+                temp.setBackgroundColor(0xFFFFFFF);
+            }
             gameActivity.playGame();
         } else {
             value = keyValues.get(view.getId());
             inputConnection.commitText(value, 1);
+            temp = findViewById(view.getId());
         }
     }
 
