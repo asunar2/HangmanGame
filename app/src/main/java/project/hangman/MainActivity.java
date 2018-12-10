@@ -45,10 +45,8 @@ public class MainActivity extends AppCompatActivity {
         beginnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //go to a new android page thing
                 Toast.makeText(getApplicationContext(), "Starting game", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
-                //beginnerWord hardcoded to String testing
                 myIntent.putExtra("beginnerWord", gameWord);
                 myIntent.putExtra("definition", gameDefinition);
                 myIntent.putExtra("partOfSpeech", gamePOS);
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    //Gets the word
     public void apiCall() {
         final String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -95,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         };
         queue.add(request);
     }
+    //Gets the definition and the part of speech of the word
     public void apiCallDefinition() {
         final String url ="https://wordsapiv1.p.rapidapi.com/words/" + gameWord + "/definitions";
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -106,10 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(final JSONObject response) {
-
                         try {
                             Log.d("Response1", response.toString());
-                            //Log.d("Response2", response.getString("word"));
                             JSONArray temp = response.getJSONArray("definitions");
                             if (temp.length() != 0) {
                                 gameDefinition = temp.getJSONObject(0).getString("definition");
