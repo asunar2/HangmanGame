@@ -102,6 +102,8 @@ public class GameActivity extends AppCompatActivity {
 
         }
 
+        checkWhitespace();
+
         //timertext = findViewById(R.id.timertext);
 
         wordLayout = findViewById(R.id.correctWord);
@@ -165,6 +167,12 @@ public class GameActivity extends AppCompatActivity {
         this.wrongLettersString += input;
     }
 
+    public void checkWhitespace() {
+        if (gameWord.contains(" ") || gameWord.contains("-")) {
+            numCharsCorrect++;
+        }
+    }
+
     public void playGame() {
         Log.d(TAG, "current wrongLettersString " + wrongLettersString);
         ltr = keyboard.getValue();
@@ -189,12 +197,11 @@ public class GameActivity extends AppCompatActivity {
                 gameWin(true);
             }
         } else {
+            displayWrongLetters();
+            currentBodyPart++;
+            bodyParts[currentBodyPart].setVisibility(View.VISIBLE);
             if (currentBodyPart == numBodyParts - 1) {
                 gameWin(false);
-            } else {
-                displayWrongLetters();
-                currentBodyPart++;
-                bodyParts[currentBodyPart].setVisibility(View.VISIBLE);
             }
 
         }
@@ -203,12 +210,13 @@ public class GameActivity extends AppCompatActivity {
     private void gameWin(boolean win) {
         //Should send to a different activity page that says either win or loss
         if (win) {
-            Toast.makeText(getApplicationContext(), "win", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "You win!", Toast.LENGTH_SHORT).show();
             Intent myIntent = new Intent(GameActivity.this, WinningPage.class);
             GameActivity.this.startActivity(myIntent);
         } else {
-            Toast.makeText(getApplicationContext(), "loss", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "You Lose. Correct word is " + gameWord, Toast.LENGTH_SHORT).show();
             Intent myIntent = new Intent(GameActivity.this, LosingPage.class);
+            myIntent.putExtra("word", gameWord);
             GameActivity.this.startActivity(myIntent);
         }
 
@@ -219,4 +227,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public int getDifficultyLevel() {return difficultyLevel;}
+
+
 }

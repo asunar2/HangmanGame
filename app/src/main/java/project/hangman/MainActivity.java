@@ -35,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
     Button advancedButton;
 
 
-    //String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
+
     String gameWord = "not null";
-    String potentialWord = "also not null";
     boolean flag = false;
 
     @Override
@@ -45,43 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        // Request a string response from the provided URL.
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(final JSONObject response) {
-
-                        try {
-                            Log.d("Response", response.toString());
-                            Log.d("Response", response.getString("word"));
-                            gameWord = response.getString("word");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(final VolleyError error) {
-                Log.w("Response", error.toString());
-            }
-        }) {
-            public Map<String, String> getHeaders() {
-            Map<String, String>  params = new HashMap<String, String>();
-            params.put("X-RapidAPI-Key", "CiQsyIyhApmshwVvH76egK5yYwYvp161sI2jsnEQ86QFhSqxhp");
-            Log.d("Response", params.toString());
-            return params;
-        }
-    };
-
-
-        queue.add(request);
+        apicall();
 
 
         beginnerButton = findViewById(R.id.beginner); //change button to name of the beginner button thing
@@ -113,6 +76,48 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(myIntent);
             }
         });
+
+
+    }
+
+    public void apicall() {
+        final String url ="https://wordsapiv1.p.rapidapi.com/words/?random=true";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        // Request a string response from the provided URL.
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(final JSONObject response) {
+
+                        try {
+                            Log.d("Response", response.toString());
+                            Log.d("Response", response.getString("word"));
+                            gameWord = response.getString("word");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                Log.w("Response", error.toString());
+            }
+        }) {
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("X-RapidAPI-Key", "CiQsyIyhApmshwVvH76egK5yYwYvp161sI2jsnEQ86QFhSqxhp");
+                Log.d("Response", params.toString());
+                return params;
+            }
+        };
+
+
+        queue.add(request);
 
     }
 }
