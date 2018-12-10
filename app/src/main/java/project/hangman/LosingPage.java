@@ -25,7 +25,8 @@ public class LosingPage extends AppCompatActivity {
         definitionText = findViewById(R.id.definition);
         this.gameWord = getIntent().getStringExtra("word").toUpperCase();
         word.setText("The word is " + gameWord);
-        this.definition = getIntent().getStringExtra("definition").toUpperCase();
+        this.definition = getIntent().getStringExtra("partOfSpeech").toUpperCase() + ": "
+                + getIntent().getStringExtra("definition");
         definitionText.setText(this.definition);
         lose.setOnClickListener(new View.OnClickListener() {
             @Override

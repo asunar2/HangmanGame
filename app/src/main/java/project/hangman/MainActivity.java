@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button beginnerButton;
     String gameWord = "not null";
-    String gameDefinition = "nut null";
+    String gameDefinition = "Definition - N/A";
+    String gamePOS = "Part of Speech - N/A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 //beginnerWord hardcoded to String testing
                 myIntent.putExtra("beginnerWord", gameWord);
                 myIntent.putExtra("definition", gameDefinition);
+                myIntent.putExtra("partOfSpeech", gamePOS);
                 MainActivity.this.startActivity(myIntent);
             }
         });
@@ -110,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
                             //Log.d("Response2", response.getString("word"));
                             JSONArray temp = response.getJSONArray("definitions");
                             if (temp.length() != 0) {
-                                gameDefinition = temp.getString(0);
+                                gameDefinition = temp.getJSONObject(0).getString("definition");
+                                gamePOS = temp.getJSONObject(0).getString("partOfSpeech");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
