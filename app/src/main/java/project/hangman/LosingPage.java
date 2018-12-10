@@ -9,7 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LosingPage extends AppCompatActivity {
-    String gameWord;
+    private String gameWord;
+    private String definition;
 
 
     @Override
@@ -17,11 +18,15 @@ public class LosingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Button lose;
         TextView word;
+        TextView definitionText;
         setContentView(R.layout.activity_losing_page);
         lose = findViewById(R.id.losertohome);
         word = findViewById(R.id.losingword);
+        definitionText = findViewById(R.id.definition);
         this.gameWord = getIntent().getStringExtra("word").toUpperCase();
         word.setText("The word is " + gameWord);
+        this.definition = getIntent().getStringExtra("definition").toUpperCase();
+        definitionText.setText(this.definition);
         lose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

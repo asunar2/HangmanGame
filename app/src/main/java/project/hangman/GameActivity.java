@@ -28,6 +28,8 @@ public class GameActivity extends AppCompatActivity {
     public String gameWord;
     //game word in a char[]
     public char[] gameWordArray;
+    //Definition
+    public String gameDefinition;
     //The wrong letters
     private String wrongLettersString = "";
     //already guessed letters
@@ -83,6 +85,8 @@ public class GameActivity extends AppCompatActivity {
 
         //set the game word from main activity
         this.gameWord = getIntent().getStringExtra("beginnerWord").toUpperCase();
+        this.gameDefinition = getIntent().getStringExtra("definition");
+        Log.d("HELLLOOOO", gameDefinition);
 
         //account for any whitespace or hyphens in the game word
         checkWhitespace();
@@ -200,11 +204,14 @@ public class GameActivity extends AppCompatActivity {
         if (win) {
             Toast.makeText(getApplicationContext(), "You win!", Toast.LENGTH_SHORT).show();
             Intent myIntent = new Intent(GameActivity.this, WinningPage.class);
+            myIntent.putExtra("word", gameWord);
+            myIntent.putExtra("definition", gameDefinition);
             GameActivity.this.startActivity(myIntent);
         } else {
             Toast.makeText(getApplicationContext(), "You Lose. Correct word is " + gameWord, Toast.LENGTH_SHORT).show();
             Intent myIntent = new Intent(GameActivity.this, LosingPage.class);
             myIntent.putExtra("word", gameWord);
+            myIntent.putExtra("definition", gameDefinition);
             GameActivity.this.startActivity(myIntent);
         }
 

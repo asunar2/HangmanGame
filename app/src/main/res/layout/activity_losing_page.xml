@@ -48,4 +48,19 @@
         app:layout_constraintTop_toBottomOf="@+id/loserGIF"
         app:layout_constraintVertical_bias="0.666" />
 
+    <TextView
+        android:id="@+id/definition"
+        android:layout_width="298dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="177dp"
+        android:layout_marginLeft="177dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginRight="176dp"
+        android:layout_marginBottom="17dp"
+        android:text="Definition"
+        app:layout_constraintBottom_toTopOf="@+id/losertohome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/losingword" />
+
 </android.support.constraint.ConstraintLayout>
